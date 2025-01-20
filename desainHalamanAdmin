@@ -1,0 +1,152 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Admin Dashboard
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: 'Roboto', sans-serif;
+        }
+  </style>
+ </head>
+ <body class="bg-gray-100">
+  <div class="flex h-screen overflow-hidden">
+   <!-- Sidebar -->
+   <div class="bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform -translate-x-full transition duration-200 ease-in-out md:relative md:translate-x-0" id="sidebar">
+    <div class="text-2xl font-semibold text-center">
+     Admin Dashboard
+    </div>
+    <nav>
+     <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" href="#rekomendasi">
+      <i class="fas fa-star mr-2">
+      </i>
+      Rekomendasi
+     </a>
+     <a class="block py-2.5 px-4 rounded transition duration-200 hover:bg-gray-700" href="#informasi">
+      <i class="fas fa-info-circle mr-2">
+      </i>
+      Informasi
+     </a>
+    </nav>
+   </div>
+   <!-- Main Content -->
+   <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <header class="bg-white shadow-md p-4 flex justify-between items-center">
+     <button class="text-gray-800 md:hidden" id="menu-button">
+      <i class="fas fa-bars text-2xl">
+      </i>
+     </button>
+     <h1 class="text-2xl font-semibold">
+      Admin Dashboard
+     </h1>
+    </header>
+    <div class="flex-1 p-4 md:p-10 overflow-y-auto no-scrollbar">
+     <!-- Rekomendasi Section -->
+     <section class="hidden" id="rekomendasi">
+      <h1 class="text-3xl font-semibold mb-6">
+       Rekomendasi
+      </h1>
+      <div class="bg-white p-6 rounded-lg shadow-lg">
+       <div class="mb-4">
+        <img alt="Uploaded image preview" class="w-full h-40 object-cover rounded-t-lg" height="200" id="uploaded-image" src="https://storage.googleapis.com/a1aa/image/4TvFM7gaZzYzENwe9AlaaHeeciVZkceQcxvTOpaJc7UUMXcQB.jpg" width="300"/>
+       </div>
+       <div class="mb-4 text-center">
+        <input accept="image/*" class="hidden" id="image-upload" type="file"/>
+        <label class="cursor-pointer bg-blue-500 text-white py-2 px-4 rounded" for="image-upload">
+         Upload Gambar
+        </label>
+       </div>
+       <div class="mb-4">
+        <input class="w-full p-2 border border-gray-300 rounded" id="title" placeholder="Judul" type="text"/>
+       </div>
+       <div class="mb-4">
+        <textarea class="w-full p-2 border border-gray-300 rounded" id="description" placeholder="Deskripsi" rows="5">
+        </textarea>
+       </div>
+      </div>
+     </section>
+     <!-- Informasi Section -->
+     <section class="hidden" id="informasi">
+      <h1 class="text-3xl font-semibold mb-6">
+       Informasi
+      </h1>
+      <div class="space-y-4">
+       <!-- Example Information Item -->
+       <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold">
+         Information 1
+        </h2>
+        <p class="mt-2 text-gray-600">
+         Details about information 1.
+        </p>
+       </div>
+       <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold">
+         Information 2
+        </h2>
+        <p class="mt-2 text-gray-600">
+         Details about information 2.
+        </p>
+       </div>
+       <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h2 class="text-xl font-semibold">
+         Information 3
+        </h2>
+        <p class="mt-2 text-gray-600">
+         Details about information 3.
+        </p>
+       </div>
+      </div>
+     </section>
+    </div>
+   </div>
+  </div>
+  <script>
+   document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.querySelectorAll('section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.querySelector(this.getAttribute('href')).classList.remove('hidden');
+                if (window.innerWidth < 768) {
+                    document.getElementById('sidebar').classList.add('-translate-x-full');
+                }
+            });
+        });
+
+        document.getElementById('menu-button').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        document.getElementById('image-upload').addEventListener('change', function(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const output = document.getElementById('uploaded-image');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+  </script>
+  <style>
+   .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+  </style>
+ </body>
+</html>
